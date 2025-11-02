@@ -5,7 +5,7 @@ Each **line** represents a thematic domain of architectural knowledge (e.g., *Qu
 
 SMoSA aims to **connect theoretical foundations, modern practices, and empirical insights** in a cohesive and intuitive structure to support **architectural learning, assessment, and communication**.
 
-![Subway Map of Software Architecture](./smosa-map.png)
+![Subway Map of Software Architecture](./smosa.png)
 ---
 
 ## 🎯 Purpose
