@@ -11,7 +11,7 @@ SMoSA aims to **connect theoretical foundations, modern practices, and empirical
 
 - To provide a **visual taxonomy** of the main areas of software architecture.
 - To bridge **academic and industrial perspectives** on architectural practices.
-- To serve as the conceptual foundation for **architecture maturity assessments** and **visual dashboards** such as those in the [ASAAF Framework](https://github.com/your-org/asaaf-framework).
+- To serve as the conceptual foundation for **architecture maturity assessments** and **visual dashboards** such as those in the current PhD Reseach of Manoel Valerio da Silveira Neto.
 - To promote **continuous architectural reflection** in agile and DevOps environments.
 
 ---
@@ -42,15 +42,6 @@ It aligns with well-known references such as:
 
 ---
 
-## 🛠️ Technologies and Formats
-
-- **Visualization:** D3.js, Mermaid, or LaTeX TikZ  
-- **Documentation:** Markdown / arc42 format  
-- **Integration:** ASAAF backend (Node.js/Express) and frontend (React)  
-- **Storage:** JSON/CSV knowledge base with references to primary sources  
-
----
-
 ## 📚 Citation
 
 If you use SMoSA in your work, please cite:
@@ -77,7 +68,7 @@ you are free to share and adapt the material as long as proper credit is given.
 
 ## 🧩 Structure
 
-The SMoSA is organized into **12 main lines**, each containing multiple stations.  
+The SMoSA is organized into **10 main lines** (in current view), each containing multiple stations.  
 Below are examples of lines and corresponding stations:
 
 | Line | Description |
