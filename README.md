@@ -8,65 +8,6 @@ SMoSA aims to **connect theoretical foundations, modern practices, and empirical
 ![Subway Map of Software Architecture](./subwaymap.png)
 ---
 
-## 🎯 Purpose
-
-- To provide a **visual taxonomy** of the main areas of software architecture.
-- To bridge **academic and industrial perspectives** on architectural practices.
-- To serve as the conceptual foundation for **architecture maturity assessments** and **visual dashboards** such as those in the current PhD Reseach of Manoel Valerio da Silveira Neto.
-- To promote **continuous architectural reflection** in agile and DevOps environments.
-
----
-
-## 🧠 Conceptual Background
-
-SMoSA was developed in the context of doctoral research on **software architecture evaluation in agile environments**, integrating:
-- **ISO/IEC 25010:2023** Quality Attributes  
-- **Architecture Evaluation Methods** (ATAM, SAAM, CBAM, ALMA)  
-- **Agile and DevOps Practices**  
-- **Architecture Decision Records (ADRs)**  
-- **Modern Paradigms** such as *Evolutionary Architecture, Microservices, Cloud-Native Design*, and *Continuous Architecture*.
-
-It aligns with well-known references such as:
-- Bass, Clements, and Kazman — *Software Architecture in Practice*  
-- Ford, Parsons, and Kua — *Building Evolutionary Architectures*  
-- Richards and Ford — *Fundamentals of Software Architecture*  
-- ISO/IEC/IEEE 42010 — *Architecture Description*  
-
----
-
-## 🚀 Applications
-
-- **Educational Tool**: Used in software architecture courses to teach interrelated topics.  
-- **Research Artifact**: Forms the basis for the *Agile Software Architecture Assessment Framework (ASAAF)*.  
-- **Organizational Use**: Can guide architecture reviews, roadmaps, and knowledge sharing within teams.  
-- **Visualization Dashboard**: Integrates with radar charts and maturity tables for architectural assessments.
-
----
-
-## 📚 Citation
-
-If you use SMoSA in your work, please cite:
-
-> Silveira Neto, M. V. da; Malucelli, A.; Reinehr, S.  
-> **"Subway Map of Software Architecture (SMoSA): A Visual Framework for Architectural Knowledge and Maturity Assessment."**  
-> Doctoral Research, PUCPR, 2025.
-
----
-
-## 📄 License
-
-This project is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license —  
-you are free to share and adapt the material as long as proper credit is given.
-
----
-
-## 🌐 Learn More
-
-
-> *“The Subway Map is not just a visualization — it’s a shared mental model for architectural thinking, enabling continuous reflection, decision transparency, and evolution.”*
-
----
-
 ## 🧩 Structure
 
 The SMoSA is organized into **10 main lines** (in current view), each containing multiple stations.  
@@ -167,7 +108,7 @@ Below are examples of lines and corresponding stations:
 | **Measurement and Evaluation** | Quality Attribute Measurement | KAZMAN, Rick; KLEIN, Mark H.; CLEMENTS, Paul. *Evaluating Software Architectures: Methods and Case Studies.* Boston: Addison-Wesley, 2002. |
 
  **Table Metrics** summarizes these indicative metrics for all analyzed sources. All citation counts and platform-based metrics were collected on December,~2025, and should therefore be interpreted as a temporal snapshot intended to support recurrence and visibility analysis rather than as stable bibliometric measures.
-| {Source ID | Metric | Platform | Type | Amazon Rating  | Amazon Evaluations |
+| Source ID | Metric | Platform | Type | Amazon Rating  | Amazon Evaluations |
 |--------------------|-----------------|-------------------|---------------|--------------------------|-----------------------------|
 | S1                 | 2918            | Google Scholar    | Citation      | 4.6                      | 1486                        |
 | S2                 | 41              | Google Scholar    | Citation      | 4.4                      | 32                          |
