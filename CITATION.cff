@@ -1,15 +1,34 @@
-cff-version: 1.2.0
-message: "Se você usar este repositório, por favor cite-o assim:"
+message: "If you use this repository, please cite it like this:"
+title: "A Subway Map of Software Architecture: A Multivocal Review and Visual Framework"
+version: "1.0.0"
+date-released: 2026-03-22
+url: "https://github.com/manoelvsneto/smosa"
 authors:
   - family-names: "Silveira Neto"
-    given-names: "Manoel Valerio"
+    given-names: "Manoel Valerio da"
     orcid: "https://orcid.org/0000-0003-0470-5350"
+    affiliation: "Graduate Program in Informatics (PPGIa), Pontifical Catholic University of Paraná, Curitiba, Paraná, Brazil"
   - family-names: "Malucelli"
     given-names: "Andreia"
+    orcid: "https://orcid.org/0000-0002-0929-1874"
+    affiliation: "Graduate Program in Informatics (PPGIa), Pontifical Catholic University of Paraná, Curitiba, Paraná, Brazil"
   - family-names: "Reinehr"
-    given-names: "Sheila"
-title: "Subway Map of Software Architecture"
-version: "1.0.0"
-doi: "" # Se publicar no Zenodo
-date-released: 2025-10-13
-url: "https://github.com/manoelvsneto/smosa/new/main"
+    given-names: "Sheila S."
+    orcid: "https://orcid.org/0000-0001-9430-7713"
+    affiliation: "Graduate Program in Informatics (PPGIa), Pontifical Catholic University of Paraná, Curitiba, Paraná, Brazil"
+
+preferred-citation:
+  type: paper-conference
+  authors:
+    - family-names: "Silveira Neto"
+      given-names: "Manoel Valerio da"
+      orcid: "https://orcid.org/0000-0003-0470-5350"
+    - family-names: "Malucelli"
+      given-names: "Andreia"
+      orcid: "https://orcid.org/0000-0002-0929-1874"
+    - family-names: "Reinehr"
+      given-names: "Sheila S."
+      orcid: "https://orcid.org/0000-0001-9430-7713"
+  title: "A Subway Map of Software Architecture: A Multivocal Review and Visual Framework"
+  conference: "ICEIS"
+  year: 2026
