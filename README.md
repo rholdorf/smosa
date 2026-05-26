@@ -1,6 +1,6 @@
 # 🗺️ Subway Map of Software Architecture (SMoSA)
 
-Citation: Silveira Neto, M. V.; Malucelli, A. and Reinehr, S. (2026). A Subway Map of Software Architecture: A Multivocal Review and Visual Framework.  In Proceedings of the 28th International Conference on Enterprise Information Systems - Volume 2, ISBN 978-989-758-834-1, ISSN 2184-4992, pages 1431-1442.    
+Citation: Silveira Neto, M. V., Malucelli, A. and Reinehr, S. (2026). A Subway Map of Software Architecture: A Multivocal Review and Visual Framework. In Proceedings of the 28th International Conference on Enterprise Information Systems - Volume 2: ICEIS; ISBN 978-989-758-834-1; ISSN 2184-4992, SciTePress, pages 1431-1442. DOI: 10.5220/0014672700004018.    
 
 The **Subway Map of Software Architecture (SMoSA)** is a **visual knowledge framework** designed to represent the complex ecosystem of software architecture concepts, practices, and decisions through the metaphor of a **metro map**.  
 Each **line** represents a thematic domain of architectural knowledge (e.g., *Quality Attributes, Architectural Styles, DevOps, Security*), and each **station** represents a key concept, pattern, or reference from the literature.
