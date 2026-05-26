@@ -1,8 +1,10 @@
+cff-version: "1.2.0"
 message: "If you use this repository, please cite it like this:"
 title: "A Subway Map of Software Architecture: A Multivocal Review and Visual Framework"
 version: "1.0.0"
 date-released: 2026-03-22
 url: "https://github.com/manoelvsneto/smosa"
+
 authors:
   - family-names: "Silveira Neto"
     given-names: "Manoel Valerio da"
@@ -18,7 +20,7 @@ authors:
     affiliation: "Graduate Program in Informatics (PPGIa), Pontifical Catholic University of Paraná, Curitiba, Paraná, Brazil"
 
 preferred-citation:
-  type: paper-conference
+  type: conference-paper
   authors:
     - family-names: "Silveira Neto"
       given-names: "Manoel Valerio da"
@@ -30,5 +32,14 @@ preferred-citation:
       given-names: "Sheila S."
       orcid: "https://orcid.org/0000-0001-9430-7713"
   title: "A Subway Map of Software Architecture: A Multivocal Review and Visual Framework"
-  conference: "ICEIS"
+  collection-title: "Proceedings of the 28th International Conference on Enterprise Information Systems - Volume 2: ICEIS"
+  conference:
+    name: "28th International Conference on Enterprise Information Systems"
+    acronym: "ICEIS"
   year: 2026
+  publisher:
+    name: "SciTePress"
+  pages: "1431-1442"
+  isbn: "978-989-758-834-1"
+  issn: "2184-4992"
+  doi: "10.5220/0014672700004018"
