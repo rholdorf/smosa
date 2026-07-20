@@ -40,9 +40,12 @@ security-practices · **agile-devops** · modeling-docs
    - Portfólio: repita por repositório; guarde os resultados por repo.
    - **Ausência falsa:** trate como "não avaliado", nunca como nota baixa, tudo
      que o mapa marcou como não-materializado/não-clonado (ver caveats da Fase 0).
-3. **(Recomendado) Verificação adversarial.** Para notas de baixa confiança ou
-   alto impacto, rode um segundo passe que tenta REFUTAR a nota relendo as
-   evidências. Rebaixe se a evidência não sustentar; suba a confiança se sustentar.
+3. **(Recomendado) Verificação adversarial.** Invoque o agente `smosa-verify`
+   (um cético por pilar) para notas de baixa confiança ou alto impacto — e no
+   outlier mais alto. Ele re-abre as evidências e tenta REFUTAR a nota nos dois
+   sentidos. Aplique o veredito: rebaixe se a evidência não sustentar, suba a
+   confiança se sustentar. _Comprovadamente valioso: num sistema real corrigiu
+   ~0,3 ponto de otimismo e pegou uma nota inflada que o 1º passe deixou passar._
 4. **Radares.** Invoque a skill `smosa-radar` com o vetor de notas (um radar
    por repo + um radar sobreposto/agregado se houver vários).
 5. **Relatório.** Preencha `smosa/report-template.md` com: tabela de notas,

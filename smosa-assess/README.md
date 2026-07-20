@@ -62,7 +62,8 @@ smosa-assess/
 │  └─ report-template.md      # esqueleto do relatório final
 ├─ agents/
 │  ├─ smosa-discovery.md      # Fase 0: mapeia o terreno (read-only, stack-agnóstico)
-│  └─ smosa-<pilar>.md        # 9 subagents avaliadores (1 por pilar) → saída JSON
+│  ├─ smosa-<pilar>.md        # 9 subagents avaliadores (1 por pilar) → saída JSON
+│  └─ smosa-verify.md         # Fase 3: verificador adversarial (refuta cada nota)
 ├─ skills/
 │  ├─ smosa-assess/SKILL.md   # orquestrador brownfield (fan-out dos 9 pilares)
 │  └─ smosa-radar/SKILL.md    # gera o radar (SVG inline, HTML autocontido)
@@ -202,6 +203,17 @@ A Fase 0 distingue dois casos, que mudam o escopo:
 
 ---
 
+### Empacotar para distribuição (offline)
+
+Como os artefatos HTML são **autocontidos** (SVG+JS inline, zero dependências),
+uma avaliação pode virar um bundle portável para enviar a stakeholders sem expor
+os dados online: uma pasta em `reports/` (privada) com `index.html` (relatório +
+radar embutidos), o radar isolado, o `.md` detalhado e um LEIA-ME, zipada. Abre
+em qualquer navegador, offline. Redija valores de segredo e mande só a partes
+apropriadas.
+
+---
+
 ## Encoding dos artefatos HTML (obrigatório)
 
 O visualizador de Artifact pode servir a página **sem declarar charset**, o que
@@ -226,7 +238,9 @@ python3 tools/ascii_safe.py reports/meu-relatorio.html
 
 - ✅ **Brownfield** ponta-a-ponta: Fase 0 discovery (stack-agnóstica) + 9 rubricas,
   9 agentes avaliadores, orquestrador e radar.
-- ⏳ **Verificação adversarial** — prevista no orquestrador; a acionar por avaliação.
+- ✅ **Verificação adversarial** — agente `smosa-verify` (Fase 3) refuta cada nota
+  nos dois sentidos. Comprovada em uso num sistema real: corrigiu ~0,3 ponto de
+  otimismo e rebaixou uma nota inflada que o 1º passe deixara passar.
 - ⏳ **Greenfield** — sessão de Q&A tipo *grill* que reusa as rubricas como
   bússola para gerar insumos iniciais (ADRs, stack, backlog). *Ainda não construído.*
 - ⏳ **Pilar de IA/ML** — o `model.yaml` já aceita uma 10ª rubrica (arquitetura
