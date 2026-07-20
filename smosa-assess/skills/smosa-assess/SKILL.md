@@ -18,29 +18,43 @@ strategic-principles · quality-attributes · architectural-styles ·
 architectural-patterns · cloud-distributed · data-architecture ·
 security-practices · **agile-devops** · modeling-docs
 
-> Estado atual (fatia vertical): apenas **agile-devops** implementado. Os
-> demais agentes seguem o mesmo contrato assim que suas rubricas existirem.
+> Os 9 pilares estão implementados. Cada agente segue o mesmo contrato de
+> saída (JSON com `score` + `evidence`); ver `smosa/model.yaml` e as rubricas.
 
 ## Fluxo
 
-1. **Descoberta.** Receba 1..N caminhos de repositório. Para cada um, mapeie a
-   estrutura de topo e detecte o tipo de artefato.
-2. **Avaliação (fan-out).** Para cada pilar com rubrica `implemented`, invoque
-   o agente avaliador correspondente (ex.: `smosa-agile-devops`) sobre o repo.
-   Rode os pilares em paralelo. Cada agente devolve o JSON estruturado com
-   `score` + `evidence` (ver `smosa/model.yaml` e as rubricas).
-   - Multi-repo: repita por repositório; guarde os resultados por repo.
-3. **(Opcional, recomendado) Verificação adversarial.** Para notas de baixa
-   confiança ou alto impacto, rode um segundo passe que tenta REFUTAR a nota
-   relendo as evidências. Rebaixe se a evidência não sustentar.
+1. **Fase 0 — Discovery (obrigatória).** Antes de pontuar, invoque o agente
+   `smosa-discovery` sobre o(s) caminho(s). Ele é **read-only** e stack-agnóstico
+   (detecta .NET/Python/Node/…) e devolve o **mapa do sistema**: forma do alvo
+   (repo único · multi-repo que forma UM sistema · portfólio), inventário
+   pretendido, topologia declarada, classificação por arquétipo, **completude**
+   (o que é esperado vs. o que está fisicamente presente) e os **caveats de
+   ausência falsa**. Esse mapa vira o **contexto compartilhado** das fases
+   seguintes e decide o **escopo** (avaliar como um sistema ou por repo).
+2. **Avaliação (fan-out).** Para cada um dos 9 pilares, invoque o agente
+   avaliador correspondente (ex.: `smosa-security-practices`), **passando o mapa
+   da Fase 0** no prompt. Rode os pilares em paralelo. Cada agente devolve o JSON
+   estruturado com `score` + `evidence`.
+   - Multi-repo que forma um sistema: avalie o conjunto como UM alvo (as costuras
+     — orquestrador, filas, libs compartilhadas — são evidência de primeira classe).
+   - Portfólio: repita por repositório; guarde os resultados por repo.
+   - **Ausência falsa:** trate como "não avaliado", nunca como nota baixa, tudo
+     que o mapa marcou como não-materializado/não-clonado (ver caveats da Fase 0).
+3. **(Recomendado) Verificação adversarial.** Para notas de baixa confiança ou
+   alto impacto, rode um segundo passe que tenta REFUTAR a nota relendo as
+   evidências. Rebaixe se a evidência não sustentar; suba a confiança se sustentar.
 4. **Radares.** Invoque a skill `smosa-radar` com o vetor de notas (um radar
    por repo + um radar sobreposto/agregado se houver vários).
 5. **Relatório.** Preencha `smosa/report-template.md` com: tabela de notas,
    evidências por pilar, conflitos arquiteturais, propostas de intervenção
-   priorizadas (esforço × impacto) e plano de mudança (roadmap por ondas).
+   priorizadas (esforço × impacto) e plano de mudança (roadmap por ondas). Saída
+   para `reports/` (privado/gitignored).
 
 ## Regras de ouro
 - **Evidência obrigatória.** Nenhuma nota sem `path:linha` ou ausência provada.
 - **0 = N/A**, não "ruim". Distinga "não aplicável" de "nível 1 (iniciante)".
 - **Não inflar.** O alicerce de cada pilar trava o teto (ver `scoring_guidance`).
+- **Ausência ≠ não-baixado.** Só registre "ausência provada" quando o mapa da
+  Fase 0 confirmar que o código está presente e mesmo assim o sinal não existe.
+  Código não clonado/não materializado é "não avaliado", nunca nota baixa.
 - **Reprodutível.** Registre a data da avaliação; notas são um retrato temporal.

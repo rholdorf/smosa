@@ -60,7 +60,9 @@ smosa-assess/
 │  ├─ model.yaml              # 9 pilares + o motor (fonte da verdade)
 │  ├─ rubric/*.yaml           # 9 rubricas 0–5 (dimensões + sinais de evidência)
 │  └─ report-template.md      # esqueleto do relatório final
-├─ agents/smosa-<pilar>.md    # 9 subagents avaliadores (1 por pilar) → saída JSON
+├─ agents/
+│  ├─ smosa-discovery.md      # Fase 0: mapeia o terreno (read-only, stack-agnóstico)
+│  └─ smosa-<pilar>.md        # 9 subagents avaliadores (1 por pilar) → saída JSON
 ├─ skills/
 │  ├─ smosa-assess/SKILL.md   # orquestrador brownfield (fan-out dos 9 pilares)
 │  └─ smosa-radar/SKILL.md    # gera o radar (SVG inline, HTML autocontido)
@@ -126,19 +128,46 @@ procure por `smosa-assess` e `smosa-radar`.
 
 ---
 
+## Processo (do zero) — para quem não conhece o SMoSA
+
+Se você nunca usou esta coleção, o caminho é sempre o mesmo, **qualquer que seja
+a stack** (.NET, Python, Node…) e **quer seja um repo só ou dezenas**:
+
+1. **Aponte para o alvo.** Um caminho (um repo) ou um diretório que contém vários
+   repos. Você **não precisa** conhecer a estrutura de antemão — a Fase 0 descobre.
+2. **Fase 0 — Discovery (automática).** A skill invoca o agente `smosa-discovery`,
+   que lê o alvo em modo **somente-leitura** e devolve um **mapa do sistema**:
+   é um repo único, um multi-repo que forma UM sistema, ou um portfólio? Qual a
+   stack? Qual a topologia? E — crucial — o **mapa de completude**: o que está
+   fisicamente presente vs. o que só é esperado (evita marcar como "ausente" algo
+   que apenas não foi baixado/montado).
+3. **Revise o mapa e o escopo.** O mapa recomenda avaliar como **um sistema** (as
+   costuras contam) ou **por repo** (portfólio). Confirme antes de pontuar.
+4. **Fase 1 — Avaliação.** Fan-out dos 9 pilares, cada agente usando o mapa como
+   contexto. Notas 0–5 com evidência `arquivo:linha`.
+5. **Fase 2 — Radar + relatório.** Visual + `report-template.md` preenchido, na
+   pasta privada `reports/`.
+
+> **Nada é modificado no alvo.** Toda a avaliação é leitura pura; as saídas vão
+> para a coleção (`reports/`), nunca para o repositório avaliado. Isso torna
+> seguro rodar sobre código de terceiros ou que você não pode alterar.
+
+---
+
 ## Como executar (modo brownfield)
 
-**1. Avalie um repositório.** Numa sessão do Claude Code, invoque a skill
-passando o caminho do alvo:
+**1. Avalie um alvo.** Numa sessão do Claude Code, invoque a skill passando o
+caminho — um repo, ou um diretório com vários repos:
 
 ```
-/smosa-assess  /caminho/para/o/repo-alvo
+/smosa-assess  /caminho/para/o/alvo
 ```
 
-O orquestrador faz **fan-out dos 9 pilares** (um subagent por pilar, em
-paralelo). Cada agente lê sua rubrica, coleta evidências com Grep/Glob/Read e
-devolve um JSON estruturado com `score`, `confidence`, `evidence`, `absence`,
-`gaps`, `conflicts` e `interventions`.
+O orquestrador roda a **Fase 0 (discovery)** e depois faz **fan-out dos 9
+pilares** (um subagent por pilar, em paralelo), cada um recebendo o mapa. Cada
+agente coleta evidências com Grep/Glob/Read e devolve um JSON estruturado com
+`score`, `confidence`, `evidence`, `absence`, `gaps`, `conflicts` e
+`interventions`.
 
 **2. (Recomendado) Verificação adversarial.** Para notas de baixa confiança ou
 alto impacto, peça um segundo passe que **tente refutar** cada nota relendo as
@@ -159,11 +188,17 @@ são sobrepostos (um por repo).
 evidências por pilar, conflitos, intervenções (esforço × impacto) e roadmap.
 Veja o formato final em [`examples/sample-assessment.md`](examples/sample-assessment.md).
 
-### Multi-repo (portfólio)
+### Multi-repo: um sistema × portfólio
 
-Passe vários caminhos. Cada repo é avaliado isoladamente; o radar sobreposto
-compara a maturidade lado a lado — útil para priorizar investimento entre
-serviços de um mesmo ecossistema.
+A Fase 0 distingue dois casos, que mudam o escopo:
+
+- **Multi-repo que forma UM sistema** (ex.: N serviços orquestrados por um
+  AppHost/compose/umbrella). Avalie o **conjunto como um alvo só** — as costuras
+  (orquestrador, filas, libs compartilhadas) são evidência de primeira classe, e
+  um serviço isolado pareceria pobre fora do todo. Um radar do sistema.
+- **Portfólio** (repos independentes a comparar). Cada repo é avaliado
+  isoladamente; o radar sobreposto compara a maturidade lado a lado — útil para
+  priorizar investimento entre serviços de um mesmo ecossistema.
 
 ---
 
@@ -189,7 +224,8 @@ python3 tools/ascii_safe.py reports/meu-relatorio.html
 
 ## Estado e roadmap
 
-- ✅ **Brownfield** ponta-a-ponta: 9 rubricas, 9 agentes, orquestrador e radar.
+- ✅ **Brownfield** ponta-a-ponta: Fase 0 discovery (stack-agnóstica) + 9 rubricas,
+  9 agentes avaliadores, orquestrador e radar.
 - ⏳ **Verificação adversarial** — prevista no orquestrador; a acionar por avaliação.
 - ⏳ **Greenfield** — sessão de Q&A tipo *grill* que reusa as rubricas como
   bússola para gerar insumos iniciais (ADRs, stack, backlog). *Ainda não construído.*
