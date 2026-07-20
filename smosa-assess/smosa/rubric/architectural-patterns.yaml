@@ -1,0 +1,28 @@
+pillar: architectural-patterns
+name: "Architectural Patterns"
+smosa_line_color: "#C0392B"
+description: >
+  Padrões de solução recorrentes: API Gateway, Saga, Circuit Breaker, CQRS, Event Sourcing, Database per Service, Outbox, Proxy.
+
+dimensions:
+  - id: resilience-patterns
+    signals: "Circuit Breaker/Retry (Polly), Bulkhead"
+  - id: coordination
+    signals: "Saga/Orchestration (state machine, orquestrador), Outbox"
+  - id: cqrs-es
+    signals: "CQRS (MediatR/handlers), Event Sourcing"
+  - id: gateway-data
+    signals: "API Gateway/BFF, Database per Service, Queue-based load leveling"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — nenhum padrão explícito."
+  2: "Básico — 1 padrão isolado."
+  3: "Intermediário — conjunto moderado de padrões (circuit breaker + orquestração + filas), muitas vezes custom."
+  4: "Avançado — padrões bem aplicados e consistentes (CQRS, Saga com framework, Outbox)."
+  5: "Excelência — padrões compostos, testados e documentados com trade-offs."
+
+scoring_guidance: >
+  Distinga padrão custom de framework. Orquestração via worker próprio + Polly pontual = 3. CQRS ausente (0 handlers) impede saltar para 4 pela via CQRS.
+
+require_evidence: true

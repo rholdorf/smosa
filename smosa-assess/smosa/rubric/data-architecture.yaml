@@ -1,0 +1,28 @@
+pillar: data-architecture
+name: "Data Architecture"
+smosa_line_color: "#F5A623"
+description: >
+  Padrões de gestão de dados: persistência poliglota, data mesh/lake/warehouse, streaming, CDC, governança, qualidade, ETL, indexação.
+
+dimensions:
+  - id: operational-data
+    signals: "Persistência poliglota, índices geridos, migrations, modelagem"
+  - id: distribution
+    signals: "Replicação, particionamento, consistência"
+  - id: analytics
+    signals: "Lake/warehouse, streaming, CDC, ETL/ELT"
+  - id: governance
+    signals: "Governança, qualidade de dados, linhagem"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — acesso a dados ad-hoc."
+  2: "Básico — um banco, sem gestão de índices/migrations."
+  3: "Intermediário — persistência poliglota, índices e migrations geridos (dados operacionais)."
+  4: "Avançado — o intermediário + streaming/CDC OU governança/qualidade formais."
+  5: "Excelência — data mesh/plataforma, governança e qualidade instrumentadas."
+
+scoring_guidance: >
+  Dados operacionais bem feitos (Mongo+Postgres, índices, replica, migrations) = 3. Subir para 4 exige dimensão analítica (streaming/CDC) ou governança formal.
+
+require_evidence: true

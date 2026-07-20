@@ -1,0 +1,28 @@
+pillar: architectural-styles
+name: "Architectural Styles"
+smosa_line_color: "#90A4AE"
+description: >
+  Paradigmas estruturais de alto nível: monolito, camadas, microserviços, EDA, SOA, hexagonal, serverless, clean, BFF, micro-frontend.
+
+dimensions:
+  - id: system-topology
+    signals: "Múltiplos serviços deployáveis (microserviços) vs. monolito; workers assíncronos"
+  - id: event-driven
+    signals: "Mensageria/broker (RabbitMQ/Kafka/ServiceBus), consumidores, pub/sub"
+  - id: bff-gateway
+    signals: "BFF e/ou composição de APIs por cliente"
+  - id: internal-structure
+    signals: "Hexagonal/Clean (ports & adapters), camadas internas disciplinadas"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — estilo ad-hoc/indefinido."
+  2: "Básico — monolito em camadas."
+  3: "Intermediário — separação em serviços OU EDA, de forma parcial."
+  4: "Avançado — composição deliberada de estilos (microserviços + BFF + EDA + camadas)."
+  5: "Excelência — estilos documentados e impostos (ports/adapters, boundaries testados)."
+
+scoring_guidance: >
+  Conte serviços deployáveis e a presença de broker. A ausência de disciplina hexagonal/clean documentada normalmente separa 4 de 5.
+
+require_evidence: true

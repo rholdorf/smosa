@@ -1,0 +1,30 @@
+pillar: quality-attributes
+name: "Quality Attributes and Techniques"
+smosa_line_color: "#4CAF50"
+description: >
+  Atributos não-funcionais e técnicas para garanti-los: disponibilidade, desempenho, escalabilidade, resiliência, manutenibilidade.
+
+dimensions:
+  - id: resilience
+    signals: "Retry/circuit breaker (Polly), timeouts, bulkhead, graceful degradation"
+  - id: availability
+    signals: "Health checks, probes, redundância, failover"
+  - id: scalability
+    signals: "Autoscaling (HPA), particionamento, statelessness, balanceamento"
+  - id: maintainability
+    signals: "Cobertura de testes, análise estática, modularidade"
+  - id: performance
+    signals: "Cache, async, medição de latência/throughput"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — atributos não endereçados."
+  2: "Básico — alguns testes; sem técnicas de resiliência."
+  3: "Intermediário — health checks, resiliência pontual, observabilidade e testes."
+  4: "Avançado — resiliência abrangente + autoscaling + cache + limites de recursos."
+  5: "Excelência — SLOs medidos, testes de carga/caos, orçamento de erro."
+
+scoring_guidance: >
+  Não confundir presença de biblioteca com uso: Polly referenciado mas aplicado em 1 ponto = resiliência pontual (3), não abrangente (4). Sem autoscaling, o teto de escalabilidade é 3-4.
+
+require_evidence: true

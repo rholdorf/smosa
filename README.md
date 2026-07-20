@@ -10,6 +10,21 @@ SMoSA aims to **connect theoretical foundations, modern practices, and empirical
 ![Subway Map of Software Architecture](./subwaymap.png)
 ---
 
+## 🧪 Assessment Toolkit (`smosa-assess`)
+
+The map is not only for reading — it can **assess** real systems. The
+[`smosa-assess/`](./smosa-assess/) directory is a collection of **Claude Code
+skills + agents** that scores a repository **0–5 on each of the 9 SMoSA lines**,
+grounding every score in **evidence** (`file:line` or a proven absence), and
+produces a **radar + report** with conflicts, prioritized interventions and a
+change roadmap. It operationalizes the 10th line — *Measurement and Evaluation*
+(ATAM/SAAM) — as the evaluation engine.
+
+- 📦 **Install & run:** [`smosa-assess/README.md`](./smosa-assess/README.md)
+- 📄 **Example report:** [`smosa-assess/examples/sample-assessment.md`](./smosa-assess/examples/sample-assessment.md) (fictional system)
+
+---
+
 ## 🧩 Structure
 
 The SMoSA is organized into **10 main lines** (in current view), each containing multiple stations.  

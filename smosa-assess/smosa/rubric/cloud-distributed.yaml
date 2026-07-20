@@ -1,0 +1,28 @@
+pillar: cloud-distributed
+name: "Cloud and Distributed Architecture"
+smosa_line_color: "#E8A87C"
+description: >
+  Modelos de nuvem e desafios distribuídos: IaaS/PaaS, multicloud, edge, consistência eventual, replicação, filas, service discovery.
+
+dimensions:
+  - id: orchestration
+    signals: "Kubernetes/containers, manifests declarativos, probes/recursos"
+  - id: messaging
+    signals: "Filas/broker para desacoplamento (RabbitMQ/ServiceBus)"
+  - id: data-distribution
+    signals: "Replicação (replica set), consistência eventual, sharding"
+  - id: discovery-config
+    signals: "Service discovery, config por ambiente, secrets distribuídos"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — deploy único, sem orquestração."
+  2: "Básico — containerizado, sem orquestração declarativa."
+  3: "Intermediário — k8s OU mensageria, parcial."
+  4: "Avançado — k8s declarativo + mensageria + replicação + discovery."
+  5: "Excelência — autoscaling, multi-região/multicloud, estratégia de consistência explícita."
+
+scoring_guidance: >
+  k8s declarativo + broker + replica set = 4. A falta de HPA/autoscaling e de estratégia de consistência documentada costuma separar 4 de 5.
+
+require_evidence: true

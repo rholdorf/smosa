@@ -1,0 +1,28 @@
+pillar: security-practices
+name: "Security Practices"
+smosa_line_color: "#1E88E5"
+description: >
+  Segurança em todas as camadas desde o design: secure by design, zero trust, threat modeling, OAuth/SSO, segurança de API e de container, gestão de segredos.
+
+dimensions:
+  - id: authn-authz
+    signals: "Autenticação/autorização (OAuth/JWT, [Authorize]), gateway de identidade"
+  - id: secrets
+    signals: "Gestão de segredos (KeyVault/k8s Secrets) vs. segredos versionados"
+  - id: api-security
+    signals: "Validação de entrada, rate limiting, headers, HTTPS/HSTS"
+  - id: container-supply
+    signals: "Containers non-root, imagens mínimas, scanning de dependências, threat modeling"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — sem controles de segurança."
+  2: "Básico — autenticação e validação presentes, com lacunas de higiene (segredos versionados, containers root)."
+  3: "Intermediário — authz consistente + segredos externalizados + segurança de API."
+  4: "Avançado — zero trust parcial, scanning, containers endurecidos, threat modeling."
+  5: "Excelência — secure-by-design comprovado, SAST/DAST no pipeline, políticas impostas."
+
+scoring_guidance: >
+  Capacidade (pacote JWT) não é uso: se [Authorize]/AddAuthentication não aparecem no código da app, verifique SDK/submódulo e sinalize incerteza. appsettings versionado e container root são lacunas de higiene que travam em 2.
+
+require_evidence: true

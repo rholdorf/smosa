@@ -1,0 +1,62 @@
+pillar: agile-devops
+name: "Agile and DevOps Practices"
+smosa_line_color: "#8E44AD"
+description: >
+  Maturidade das práticas que integram Agile e DevOps: integração e entrega
+  contínuas, infraestrutura como código, observabilidade, gestão de
+  configuração e evolução arquitetural automatizada.
+
+# Dimensões observáveis. O agente coleta sinais para cada uma; a nota do
+# pilar é o MAIOR nível para o qual as dimensões fundamentais estão
+# consistentemente satisfeitas (um sinal avançado isolado não eleva a nota
+# se o alicerce está ausente).
+dimensions:
+  - id: ci
+    name: "Continuous Integration"
+    signals:
+      path_globs: [".github/workflows/**", ".gitlab-ci.yml", "**/Jenkinsfile", "azure-pipelines.yml", ".circleci/**", "bitbucket-pipelines.yml", ".travis.yml"]
+      content: ["runs tests on push/PR", "build steps", "lint/static analysis gates"]
+    grounded_in: "Humble & Farley, Continuous Delivery (S46)"
+
+  - id: cd
+    name: "Continuous Delivery/Deployment"
+    signals:
+      content: ["deploy job to an environment", "release automation", "environment promotion (staging->prod)"]
+    grounded_in: "Humble & Farley, Continuous Delivery (S46)"
+
+  - id: iac
+    name: "Infrastructure as Code"
+    signals:
+      path_globs: ["**/*.tf", "terraform/**", "helm/**", "k8s/**", "kubernetes/**", "**/Dockerfile*", "docker-compose*.yml", "ansible/**", "**/*.bicep", "cloudformation/**", "pulumi/**"]
+    grounded_in: "Morris, Infrastructure as Code (S47)"
+
+  - id: observability
+    name: "Observability & Monitoring"
+    signals:
+      path_globs: ["**/prometheus*", "**/grafana/**", "**/otel*", "**/opentelemetry*"]
+      content: ["structured logging", "metrics/tracing instrumentation", "alerting rules", "SLO/SLI definitions"]
+    grounded_in: "Sridharan, Distributed Systems Observability (S48); Beyer, SRE (S12)"
+
+  - id: config-management
+    name: "Configuration Management & 12-Factor"
+    signals:
+      path_globs: [".env.example", "**/config/**", "**/*.env*"]
+      content: ["config via environment", "secrets externalized", "no hardcoded credentials"]
+    grounded_in: "Wiggins, The Twelve-Factor App (S50)"
+
+# Âncoras de nível (avaliadas holisticamente sobre as dimensões acima).
+scale:
+  0: "N/A — artefato sem superfície de deploy (ex.: paper, coleção de docs, lib trivial sem build)."
+  1: "Iniciante — controle de versão apenas; builds/deploys manuais; sem CI."
+  2: "Básico — CI executa testes automaticamente no push/PR."
+  3: "Intermediário — CI + deploy automatizado para ≥1 ambiente; algum IaC (containers/manifests)."
+  4: "Avançado — CI/CD completo + IaC declarativa + observabilidade + rollback automatizado; config externalizada (12-factor)."
+  5: "Excelência — progressive delivery (canary/blue-green), SLOs monitorados, métricas DORA, policy-as-code, IaC versionada e testada."
+
+scoring_guidance: >
+  Comece pela dimensão CI (alicerce). Sem CI, a nota máxima é 1. Só suba para
+  3+ se houver CD real (deploy automatizado, não só build). Só chegue a 4-5 se
+  observabilidade E IaC estiverem presentes. Registre a nota como N/A (0) apenas
+  quando o repositório comprovadamente não tem o que fazer deploy.
+
+require_evidence: true

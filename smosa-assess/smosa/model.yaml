@@ -1,0 +1,78 @@
+# SMoSA Assessment — canonical model
+# Single source of truth for the assessment collection.
+# The 9 scored pillars map to the SMoSA "lines". The 10th SMoSA line
+# (Measurement and Evaluation) is NOT a scored pillar here — it is the
+# ENGINE: this whole collection operationalizes it (ATAM/SAAM-style
+# evidence-based evaluation).
+
+scale:
+  0: "Não aplicável — o artefato não tem superfície para este pilar"
+  1: "Iniciante"
+  2: "Básico"
+  3: "Intermediário"
+  4: "Avançado"
+  5: "Excelência"
+
+# Every score MUST carry evidence: a file:line citation, a config presence,
+# or a proven absence. No evidence => the score is invalid.
+require_evidence: true
+
+pillars:
+  - id: strategic-principles
+    name: "Strategic Principles and Decisions"
+    color: "#B39DDB"
+    rubric: rubric/strategic-principles.yaml
+    status: implemented
+
+  - id: quality-attributes
+    name: "Quality Attributes and Techniques"
+    color: "#4CAF50"
+    rubric: rubric/quality-attributes.yaml
+    status: implemented
+
+  - id: architectural-styles
+    name: "Architectural Styles"
+    color: "#90A4AE"
+    rubric: rubric/architectural-styles.yaml
+    status: implemented
+
+  - id: architectural-patterns
+    name: "Architectural Patterns"
+    color: "#C0392B"
+    rubric: rubric/architectural-patterns.yaml
+    status: implemented
+
+  - id: cloud-distributed
+    name: "Cloud and Distributed Architecture"
+    color: "#E8A87C"
+    rubric: rubric/cloud-distributed.yaml
+    status: implemented
+
+  - id: data-architecture
+    name: "Data Architecture"
+    color: "#F5A623"
+    rubric: rubric/data-architecture.yaml
+    status: implemented
+
+  - id: security-practices
+    name: "Security Practices"
+    color: "#1E88E5"
+    rubric: rubric/security-practices.yaml
+    status: implemented
+
+  - id: agile-devops
+    name: "Agile and DevOps Practices"
+    color: "#8E44AD"
+    rubric: rubric/agile-devops.yaml
+    status: implemented   # <-- vertical slice built first
+
+  - id: modeling-docs
+    name: "Modeling and Documentation"
+    color: "#F48FB1"
+    rubric: rubric/modeling-docs.yaml
+    status: implemented
+
+# The evaluation engine (SMoSA line 10), applied rather than scored.
+engine:
+  line: "Measurement and Evaluation"
+  grounded_in: ["ATAM (S8)", "SAAM (S57)", "Evaluating Software Architectures (S60)"]

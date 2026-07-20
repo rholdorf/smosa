@@ -1,0 +1,28 @@
+pillar: strategic-principles
+name: "Strategic Principles and Decisions"
+smosa_line_color: "#B39DDB"
+description: >
+  Princípios e decisões que fundam a arquitetura: DDD, separação de responsabilidades, alta coesão/baixo acoplamento, arquitetura evolutiva, API-first, modernização de legado, SOLID/DRY.
+
+dimensions:
+  - id: layering-separation
+    signals: "Camadas explícitas (Domain/Application/Infrastructure/Presentation); CrossCutting; ausência de dependências invertidas"
+  - id: ddd-tactical
+    signals: "Aggregates, Entities, Value Objects, Repositories ricos (vs. modelos anêmicos/DTO 'Model')"
+  - id: api-first
+    signals: "Contratos versionados, OpenAPI/Swagger, design de API deliberado"
+  - id: evolutionary
+    signals: "Postura evolutiva: trade-offs documentados, boundaries impostos, fitness functions"
+
+scale:
+  0: "N/A — artefato sem decisões estruturais (script/doc)."
+  1: "Iniciante — sem estrutura clara; acoplamento alto."
+  2: "Básico — alguma separação em camadas."
+  3: "Intermediário — camadas claras e responsabilidades separadas; DDD superficial."
+  4: "Avançado — DDD tático, boundaries impostos, trade-offs documentados."
+  5: "Excelência — bounded contexts explícitos, fitness functions e ADRs guiando a evolução."
+
+scoring_guidance: >
+  A separação em camadas é o alicerce. Modelos anêmicos ('*Model' como DTO) sem Aggregates/Value Objects limitam a nota a 3, por melhor que seja o layering.
+
+require_evidence: true

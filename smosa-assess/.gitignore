@@ -1,0 +1,9 @@
+# Assessment outputs are private — evaluations of real repositories
+# (evidence, file:line citations, findings) must never reach the remote.
+# Everything generated into reports/ is ignored; the folder itself is kept.
+reports/*
+!reports/.gitkeep
+
+# Session handover doc — contains internal evaluation data (real repo names,
+# scores, security findings). Kept locally, never pushed.
+HANDOVER.md

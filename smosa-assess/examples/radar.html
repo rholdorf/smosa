@@ -1,0 +1,217 @@
+<meta charset="utf-8">
+<title>SMoSA &#8212; Radar de Maturidade Arquitetural</title>
+<style>
+  :root {
+    --paper: #FBFAF8; --ink: #1A1D24; --ink-2: #4A505C; --ink-3: #858B98;
+    --surface: #FCFCFB; --line: #E4E2DC; --grid: #D8D6CF; --ring-label: #A7A49C;
+    --s1: #2563EB; --s1-fill: rgba(37,99,235,.14);
+    --s2: #C2410C; --s2-fill: rgba(194,65,12,.14);
+    --accent: #2563EB;
+    --shadow: 0 1px 2px rgba(20,23,28,.05), 0 8px 24px rgba(20,23,28,.06);
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #101318; --ink: #E8EAED; --ink-2: #A7ADB8; --ink-3: #6C727E;
+      --surface: #171A20; --line: #262A31; --grid: #2C313A; --ring-label: #565C67;
+      --s1: #60A5FA; --s1-fill: rgba(96,165,250,.16);
+      --s2: #F59E0B; --s2-fill: rgba(245,158,11,.16);
+      --accent: #60A5FA;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #FBFAF8; --ink: #1A1D24; --ink-2: #4A505C; --ink-3: #858B98;
+    --surface: #FCFCFB; --line: #E4E2DC; --grid: #D8D6CF; --ring-label: #A7A49C;
+    --s1: #2563EB; --s1-fill: rgba(37,99,235,.14);
+    --s2: #C2410C; --s2-fill: rgba(194,65,12,.14); --accent: #2563EB;
+    --shadow: 0 1px 2px rgba(20,23,28,.05), 0 8px 24px rgba(20,23,28,.06);
+  }
+  :root[data-theme="dark"] {
+    --paper: #101318; --ink: #E8EAED; --ink-2: #A7ADB8; --ink-3: #6C727E;
+    --surface: #171A20; --line: #262A31; --grid: #2C313A; --ring-label: #565C67;
+    --s1: #60A5FA; --s1-fill: rgba(96,165,250,.16);
+    --s2: #F59E0B; --s2-fill: rgba(245,158,11,.16); --accent: #60A5FA;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font);
+    line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: clamp(20px, 4vw, 48px); }
+  .eyebrow { font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600; margin: 0 0 8px; }
+  h1 { font-size: clamp(24px, 4vw, 34px); line-height: 1.1; letter-spacing: -.02em;
+    margin: 0 0 8px; text-wrap: balance; font-weight: 680; }
+  .lede { color: var(--ink-2); max-width: 62ch; margin: 0 0 4px; font-size: 15px; }
+  .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .toggle { flex: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+    border-radius: 999px; padding: 7px 14px; font: inherit; font-size: 13px; cursor: pointer; box-shadow: var(--shadow); }
+  .toggle:hover { color: var(--ink); }
+  .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .note { margin: 18px 0 26px; padding: 12px 16px; border-left: 3px solid var(--accent);
+    background: var(--surface); border-radius: 0 8px 8px 0; font-size: 13.5px; color: var(--ink-2); box-shadow: var(--shadow); }
+  .note strong { color: var(--ink); }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: clamp(14px, 3vw, 28px); box-shadow: var(--shadow); }
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 4px 0 8px; }
+  .legend .item { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink); font-weight: 550; }
+  .swatch { width: 22px; height: 4px; border-radius: 3px; }
+  .radar-holder { position: relative; display: flex; justify-content: center; }
+  svg { max-width: 100%; height: auto; overflow: visible; }
+  .axis-label { font-size: 11.5px; font-weight: 600; fill: var(--ink); }
+  .axis-label.sub { font-family: var(--mono); font-size: 10px; font-weight: 500; fill: var(--ink-3); }
+  .ring-num { font-family: var(--mono); font-size: 9.5px; fill: var(--ring-label); }
+  .vtx { transition: r .12s ease; }
+  .tooltip { position: absolute; pointer-events: none; opacity: 0; transform: translate(-50%, -120%);
+    background: var(--ink); color: var(--paper); padding: 8px 11px; border-radius: 8px; font-size: 12px;
+    white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,.28); transition: opacity .12s ease; z-index: 5; }
+  .tooltip .tt-p { font-weight: 650; margin-bottom: 3px; }
+  .tooltip .tt-row { font-family: var(--mono); font-size: 11px; display: flex; gap: 8px; justify-content: space-between; }
+  .tooltip .tt-dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: baseline; }
+  table { border-collapse: collapse; width: 100%; margin-top: 22px; font-size: 13.5px; }
+  caption { text-align: left; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600; padding-bottom: 8px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  tbody tr:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+  .pill-dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 8px; vertical-align: -1px; }
+  .scale-key { font-size: 12.5px; color: var(--ink-3); margin-top: 18px; }
+  .scale-key b { color: var(--ink-2); font-weight: 600; }
+  footer { margin-top: 28px; font-size: 12px; color: var(--ink-3); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <p class="eyebrow">SMoSA &#183; Measurement &amp; Evaluation</p>
+      <h1>Radar de Maturidade Arquitetural</h1>
+      <p class="lede">Avalia&#231;&#227;o por evid&#234;ncias dos 9 pilares do Subway Map of Software Architecture. Nota 0&#8211;5 por pilar, por reposit&#243;rio.</p>
+    </div>
+    <button class="toggle" id="themeBtn" aria-label="Alternar tema">&#9680; Tema</button>
+  </div>
+
+  <div class="note">
+    <strong>Prova de conceito.</strong> Os pol&#237;gonos abaixo usam <strong>dados ilustrativos fict&#237;cios</strong>
+    (dois reposit&#243;rios de exemplo) para demonstrar o entreg&#225;vel. A avalia&#231;&#227;o real deste reposit&#243;rio
+    <em>smosa</em> resultou em <strong>&#193;gil &amp; DevOps = N/A (0)</strong> &#8212; corretamente, por ser um artefato de
+    documenta&#231;&#227;o sem superf&#237;cie de deploy.
+  </div>
+
+  <div class="panel">
+    <div class="legend" id="legend"></div>
+    <div class="radar-holder">
+      <svg id="radar" viewBox="0 0 620 560" role="img" aria-label="Radar de maturidade dos 9 pilares"></svg>
+      <div class="tooltip" id="tip"></div>
+    </div>
+
+    <table>
+      <caption>Notas por pilar (vis&#227;o tabular &#8212; acess&#237;vel e audit&#225;vel)</caption>
+      <thead>
+        <tr><th>Pilar</th><th class="num">payments-service</th><th class="num">legacy-billing</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+
+    <p class="scale-key">
+      <b>Escala:</b> 0 N/A &#183; 1 Iniciante &#183; 2 B&#225;sico &#183; 3 Intermedi&#225;rio &#183; 4 Avan&#231;ado &#183; 5 Excel&#234;ncia
+    </p>
+  </div>
+
+  <footer>Retrato temporal ancorado em evid&#234;ncias (arquivo:linha). Gerado pela cole&#231;&#227;o <b>smosa-assess</b> &#183; skill <code>smosa-radar</code>.</footer>
+</div>
+
+<script>
+const PILLARS = [
+  {id:'strategic-principles', label:'Princ\u00edpios &', sub:'& Decis\u00f5es',        color:'#B39DDB'},
+  {id:'quality-attributes',   label:'Atributos de',  sub:'Qualidade',        color:'#4CAF50'},
+  {id:'architectural-styles', label:'Estilos',       sub:'Arquiteturais',    color:'#90A4AE'},
+  {id:'architectural-patterns',label:'Padr\u00f5es',      sub:'Arquiteturais',    color:'#C0392B'},
+  {id:'cloud-distributed',    label:'Nuvem &',       sub:'Distribu\u00edda',      color:'#E8A87C'},
+  {id:'data-architecture',    label:'Arquitetura',   sub:'de Dados',         color:'#F5A623'},
+  {id:'security-practices',   label:'Seguran\u00e7a',     sub:'',                 color:'#1E88E5'},
+  {id:'agile-devops',         label:'\u00c1gil &',        sub:'DevOps',           color:'#8E44AD'},
+  {id:'modeling-docs',        label:'Modelagem',     sub:'& Doc.',           color:'#F48FB1'},
+];
+const REPOS = [
+  {name:'payments-service', varc:'--s1', varf:'--s1-fill', scores:[4,4,4,5,4,3,4,5,3]},
+  {name:'legacy-billing',   varc:'--s2', varf:'--s2-fill', scores:[2,2,2,2,1,2,2,1,1]},
+];
+
+const NS='http://www.w3.org/2000/svg', cx=310, cy=280, R=190, N=PILLARS.length, MAX=5;
+const svg=document.getElementById('radar'), tip=document.getElementById('tip');
+const cssv = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const ang = i => -Math.PI/2 + i*2*Math.PI/N;
+const pt = (i,v) => [cx + (R*v/MAX)*Math.cos(ang(i)), cy + (R*v/MAX)*Math.sin(ang(i))];
+const mk = (t,a) => { const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; };
+
+function draw() {
+  svg.innerHTML='';
+  // rings
+  for (let v=1; v<=MAX; v++){
+    const d = PILLARS.map((_,i)=>pt(i,v)).map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ')+' Z';
+    svg.appendChild(mk('path',{d, fill:'none', stroke:cssv('--grid'), 'stroke-width': v===MAX?1.4:1}));
+    const top = pt(0,v);
+    svg.appendChild(mk('text',{x:cx+5, y:top[1]+3, class:'ring-num'})).textContent=v;
+  }
+  // spokes + labels
+  PILLARS.forEach((p,i)=>{
+    const o=pt(i,MAX);
+    svg.appendChild(mk('line',{x1:cx,y1:cy,x2:o[0],y2:o[1], stroke:cssv('--grid'), 'stroke-width':1}));
+    const lp=pt(i,MAX+0.62), a=ang(i), anchor=Math.abs(Math.cos(a))<0.34?'middle':(Math.cos(a)>0?'start':'end');
+    const dot=mk('rect',{x:lp[0]-(anchor==='end'?15:(anchor==='middle'?4:-6)), y:lp[1]-15, width:8, height:8, rx:2, fill:p.color});
+    svg.appendChild(dot);
+    const t=mk('text',{x:lp[0], y:lp[1], 'text-anchor':anchor, class:'axis-label'}); t.textContent=p.label; svg.appendChild(t);
+    if(p.sub){ const s=mk('text',{x:lp[0], y:lp[1]+13, 'text-anchor':anchor, class:'axis-label sub'}); s.textContent=p.sub; svg.appendChild(s); }
+  });
+  // polygons
+  REPOS.forEach(r=>{
+    const pts=PILLARS.map((_,i)=>pt(i, r.scores[i]==null?0:r.scores[i]));
+    const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ')+' Z';
+    svg.appendChild(mk('path',{d, fill:cssv(r.varf), stroke:cssv(r.varc), 'stroke-width':2, 'stroke-linejoin':'round'}));
+  });
+  // vertices (drawn last, on top, with surface ring)
+  REPOS.forEach((r,ri)=>{
+    PILLARS.forEach((p,i)=>{
+      if(r.scores[i]==null) return;
+      const [x,y]=pt(i,r.scores[i]);
+      const c=mk('circle',{cx:x, cy:y, r:4.5, fill:cssv(r.varc), stroke:cssv('--surface'), 'stroke-width':2, class:'vtx'});
+      const hit=mk('circle',{cx:x, cy:y, r:13, fill:'transparent', style:'cursor:pointer'});
+      hit.addEventListener('mouseenter',()=>{ c.setAttribute('r',6.5); showTip(i,x,y); });
+      hit.addEventListener('mouseleave',()=>{ c.setAttribute('r',4.5); tip.style.opacity=0; });
+      svg.appendChild(c); svg.appendChild(hit);
+    });
+  });
+}
+function showTip(i,x,y){
+  const rect=svg.getBoundingClientRect(), hold=svg.parentElement.getBoundingClientRect();
+  const sx=rect.width/620, sy=rect.height/560;
+  let rows=REPOS.map(r=>{
+    const v=r.scores[i]; const val=v==null?'N/A':v+' / 5';
+    return `<div class="tt-row"><span><span class="tt-dot" style="background:${cssv(r.varc)}"></span>${r.name}</span><span>${val}</span></div>`;
+  }).join('');
+  tip.innerHTML=`<div class="tt-p"><span class="tt-dot" style="background:${PILLARS[i].color}"></span>${PILLARS[i].label} ${PILLARS[i].sub}</div>${rows}`;
+  tip.style.left=((rect.left-hold.left)+x*sx)+'px';
+  tip.style.top=((rect.top-hold.top)+y*sy)+'px';
+  tip.style.opacity=1;
+}
+function buildLegend(){
+  document.getElementById('legend').innerHTML=REPOS.map(r=>
+    `<span class="item"><span class="swatch" style="background:${cssv(r.varc)}"></span>${r.name}</span>`).join('');
+}
+function buildTable(){
+  document.getElementById('tbody').innerHTML=PILLARS.map((p,i)=>
+    `<tr><td><span class="pill-dot" style="background:${p.color}"></span>${p.label} ${p.sub}</td>`+
+    REPOS.map(r=>`<td class="num">${r.scores[i]==null?'N/A':r.scores[i]}</td>`).join('')+`</tr>`).join('');
+}
+// theme toggle
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme')
+    || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  document.documentElement.setAttribute('data-theme', cur==='dark'?'light':'dark');
+  draw(); buildLegend();
+});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ if(!document.documentElement.getAttribute('data-theme')){ draw(); buildLegend(); }});
+draw(); buildLegend(); buildTable();
+</script>

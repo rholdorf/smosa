@@ -1,0 +1,28 @@
+pillar: modeling-docs
+name: "Modeling and Documentation"
+smosa_line_color: "#F48FB1"
+description: >
+  Métodos e notações para comunicar e registrar decisões e estrutura: ADRs, C4, UML, 4+1, arc42, event storming, diagram-as-code, docs de API.
+
+dimensions:
+  - id: decision-records
+    signals: "ADRs / registros de decisão"
+  - id: structure-diagrams
+    signals: "C4, UML, 4+1, arc42, diagramas (PlantUML/Mermaid/drawio)"
+  - id: api-docs
+    signals: "OpenAPI/Swagger, contratos"
+  - id: project-docs
+    signals: "READMEs, guias de onboarding, docs centrais de arquitetura"
+
+scale:
+  0: "N/A."
+  1: "Iniciante — sem documentação."
+  2: "Básico — docs de API (Swagger) e READMEs esparsos; sem ADRs/diagramas."
+  3: "Intermediário — docs de arquitetura central + alguns diagramas."
+  4: "Avançado — ADRs + C4/UML mantidos e versionados."
+  5: "Excelência — documentação viva (diagram-as-code) integrada ao fluxo."
+
+scoring_guidance: >
+  Swagger + READMEs por serviço, sem ADRs, diagramas (C4/UML) ou docs centrais de arquitetura = 2.
+
+require_evidence: true
