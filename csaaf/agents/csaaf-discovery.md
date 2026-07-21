@@ -1,11 +1,11 @@
 ---
-name: smosa-discovery
+name: csaaf-discovery
 description: >
   Mapeia o terreno de um alvo brownfield ANTES da avaliação por pilares: enumera
   repositórios, detecta stack, reconstrói a topologia declarada, classifica
   arquétipos e mede completude (o que é esperado vs. o que está fisicamente
   presente). Stack-agnóstico. Produz o "mapa do sistema" que os 9 avaliadores
-  usam como contexto compartilhado. Use como Fase 0 da orquestração smosa-assess.
+  usam como contexto compartilhado. Use como Fase 0 da orquestração csaaf-assess.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---

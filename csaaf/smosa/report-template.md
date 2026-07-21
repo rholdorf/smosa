@@ -1,4 +1,4 @@
-# SMoSA Assessment Report — {{repo}}
+# CSAAF Assessment Report — {{repo}}
 
 - **Data da avaliação:** {{date}}
 - **Modo:** Brownfield

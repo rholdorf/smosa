@@ -1,4 +1,4 @@
-# SMoSA Assessment (`smosa-assess`)
+# CSAAF — Continuous Software Architecture Assessment Framework (`csaaf`)
 
 Uma coleção de **skills + subagents do [Claude Code](https://claude.com/claude-code)**
 que transforma o **[SMoSA](../README.md)** (Subway Map of Software Architecture)
@@ -55,18 +55,18 @@ rubrica 0–5 com dimensões e sinais de evidência em [`smosa/rubric/`](smosa/r
 ## Estrutura
 
 ```
-smosa-assess/
+csaaf/
 ├─ smosa/
 │  ├─ model.yaml              # 9 pilares + o motor (fonte da verdade)
 │  ├─ rubric/*.yaml           # 9 rubricas 0–5 (dimensões + sinais de evidência)
 │  └─ report-template.md      # esqueleto do relatório final
 ├─ agents/
-│  ├─ smosa-discovery.md      # Fase 0: mapeia o terreno (read-only, stack-agnóstico)
-│  ├─ smosa-<pilar>.md        # 9 subagents avaliadores (1 por pilar) → saída JSON
-│  └─ smosa-verify.md         # Fase 3: verificador adversarial (refuta cada nota)
+│  ├─ csaaf-discovery.md      # Fase 0: mapeia o terreno (read-only, stack-agnóstico)
+│  ├─ csaaf-<pilar>.md        # 9 subagents avaliadores (1 por pilar) → saída JSON
+│  └─ csaaf-verify.md         # Fase 3: verificador adversarial (refuta cada nota)
 ├─ skills/
-│  ├─ smosa-assess/SKILL.md   # orquestrador brownfield (fan-out dos 9 pilares)
-│  └─ smosa-radar/SKILL.md    # gera o radar (SVG inline, HTML autocontido)
+│  ├─ csaaf-assess/SKILL.md   # orquestrador brownfield (fan-out dos 9 pilares)
+│  └─ csaaf-radar/SKILL.md    # gera o radar (SVG inline, HTML autocontido)
 ├─ tools/ascii_safe.py        # blindagem UTF-8 dos artefatos HTML
 ├─ examples/                  # radar POC + relatório de exemplo
 └─ reports/                   # saídas geradas — área PRIVADA (gitignored, ver abaixo)
@@ -93,11 +93,11 @@ As skills e agents são arquivos Markdown que o Claude Code descobre em
 `.claude/skills/` e `.claude/agents/`. A coleção precisa manter a pasta
 `smosa/` (rubricas) e `tools/` junto, porque as skills as leem por caminho.
 
-**1. Clone o repositório** (que contém esta coleção em `smosa-assess/`):
+**1. Clone o repositório** (que contém esta coleção em `csaaf/`):
 
 ```bash
 git clone https://github.com/<user>/smosa.git
-cd smosa/smosa-assess
+cd smosa/csaaf-assess
 ```
 
 **2. Registre skills e agents no Claude Code.** Escolha o escopo:
@@ -105,7 +105,7 @@ cd smosa/smosa-assess
 *Escopo de projeto* — disponível apenas dentro deste repositório (recomendado):
 
 ```bash
-# a partir de smosa-assess/
+# a partir de csaaf/
 mkdir -p .claude
 ln -s "$PWD/skills" .claude/skills
 ln -s "$PWD/agents" .claude/agents
@@ -114,18 +114,18 @@ ln -s "$PWD/agents" .claude/agents
 *Escopo pessoal* — disponível em qualquer sessão do Claude Code:
 
 ```bash
-# a partir de smosa-assess/
+# a partir de csaaf/
 ln -s "$PWD"/skills/*  ~/.claude/skills/
 ln -s "$PWD"/agents/*  ~/.claude/agents/
 ```
 
 > **Nota sobre caminhos.** As skills referenciam as rubricas por caminho relativo
 > à coleção (`smosa/rubric/<pilar>.yaml`). Rode o Claude Code a partir de
-> `smosa-assess/`, ou informe o caminho absoluto da coleção ao invocar — assim os
+> `csaaf/`, ou informe o caminho absoluto da coleção ao invocar — assim os
 > agentes localizam as rubricas.
 
 **3. Confirme** que as skills aparecem: numa sessão do Claude Code, digite `/` e
-procure por `smosa-assess` e `smosa-radar`.
+procure por `csaaf-assess` e `csaaf-radar`.
 
 ---
 
@@ -136,7 +136,7 @@ a stack** (.NET, Python, Node…) e **quer seja um repo só ou dezenas**:
 
 1. **Aponte para o alvo.** Um caminho (um repo) ou um diretório que contém vários
    repos. Você **não precisa** conhecer a estrutura de antemão — a Fase 0 descobre.
-2. **Fase 0 — Discovery (automática).** A skill invoca o agente `smosa-discovery`,
+2. **Fase 0 — Discovery (automática).** A skill invoca o agente `csaaf-discovery`,
    que lê o alvo em modo **somente-leitura** e devolve um **mapa do sistema**:
    é um repo único, um multi-repo que forma UM sistema, ou um portfólio? Qual a
    stack? Qual a topologia? E — crucial — o **mapa de completude**: o que está
@@ -161,7 +161,7 @@ a stack** (.NET, Python, Node…) e **quer seja um repo só ou dezenas**:
 caminho — um repo, ou um diretório com vários repos:
 
 ```
-/smosa-assess  /caminho/para/o/alvo
+/csaaf-assess  /caminho/para/o/alvo
 ```
 
 O orquestrador roda a **Fase 0 (discovery)** e depois faz **fan-out dos 9
@@ -177,7 +177,7 @@ evidências. Rebaixa se a evidência não sustentar; sobe a confiança se susten
 **3. Gere o radar.**
 
 ```
-/smosa-radar
+/csaaf-radar
 ```
 
 Produz um **HTML autocontido** (SVG inline, sem libs externas, tema claro/escuro)
@@ -238,7 +238,7 @@ python3 tools/ascii_safe.py reports/meu-relatorio.html
 
 - ✅ **Brownfield** ponta-a-ponta: Fase 0 discovery (stack-agnóstica) + 9 rubricas,
   9 agentes avaliadores, orquestrador e radar.
-- ✅ **Verificação adversarial** — agente `smosa-verify` (Fase 3) refuta cada nota
+- ✅ **Verificação adversarial** — agente `csaaf-verify` (Fase 3) refuta cada nota
   nos dois sentidos. Comprovada em uso num sistema real: corrigiu ~0,3 ponto de
   otimismo e rebaixou uma nota inflada que o 1º passe deixara passar.
 - ⏳ **Greenfield** — sessão de Q&A tipo *grill* que reusa as rubricas como

@@ -1,12 +1,12 @@
 ---
-name: smosa-radar
+name: csaaf-radar
 description: >
   Gera diagrama(s) de radar a partir do vetor de notas 0-5 dos 9 pilares do
   SMoSA. Um radar por repositório, e um radar sobreposto para comparar vários
-  repositórios (portfólio). Use ao final de uma avaliação smosa-assess.
+  repositórios (portfólio). Use ao final de uma avaliação csaaf-assess.
 ---
 
-# SMoSA Radar
+# CSAAF Radar
 
 ## Entrada
 Um array de resultados, um por repositório:
@@ -44,5 +44,5 @@ Blinde SEMPRE:
   acentuados como entidades `&#nnn;` no HTML e `\uXXXX` nas strings JS. Assim
   renderiza correto independentemente do charset assumido.
 - Pós-processador de referência (ASCII-escape HTML vs JS separadamente):
-  `smosa-assess/tools/ascii_safe.py <arquivo.html>` — deve reportar
+  `csaaf/tools/ascii_safe.py <arquivo.html>` — deve reportar
   `residual non-ASCII = 0` antes de publicar.

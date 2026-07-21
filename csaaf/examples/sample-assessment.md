@@ -1,7 +1,7 @@
-# SMoSA Assessment Report — Helios Commerce Platform
+# CSAAF Assessment Report — Helios Commerce Platform
 
 > **Documento de exemplo.** Sistema e evidências **fictícios**, criados para
-> ilustrar a saída da coleção `smosa-assess`. Nenhum `arquivo:linha` abaixo
+> ilustrar a saída da coleção `csaaf`. Nenhum `arquivo:linha` abaixo
 > aponta para código real — servem apenas para demonstrar o *formato* de uma
 > avaliação fundamentada em evidências.
 
@@ -48,7 +48,7 @@ Modelagem & Doc.         ██░░░░░░░░  1  Iniciante
 | Modeling and Documentation | 1 | alta |
 
 > Um radar visual interativo (SVG, tema claro/escuro, multi-repo) é gerado pela
-> skill [`smosa-radar`](../skills/smosa-radar/SKILL.md) como artefato HTML. As
+> skill [`csaaf-radar`](../skills/csaaf-radar/SKILL.md) como artefato HTML. As
 > barras acima são a versão portável para GitHub.
 
 ---
@@ -179,5 +179,5 @@ antes das melhorias avançadas.
 ---
 
 _Notas são um retrato temporal, ancorado em evidências. Reavaliar após cada onda._
-_Gerado pela coleção [`smosa-assess`](../README.md) — operacionaliza a linha
+_Gerado pela coleção [`csaaf`](../README.md) — operacionaliza a linha
 "Measurement and Evaluation" do SMoSA (ATAM/SAAM)._

@@ -1,8 +1,8 @@
 ---
-name: smosa-cloud-distributed
+name: csaaf-security-practices
 description: >
-  Avalia o pilar "Cloud and Distributed Architecture" de um repositório (brownfield), atribuindo nota 0-5
-  fundamentada em evidências. Use dentro da orquestração smosa-assess, ou
+  Avalia o pilar "Security Practices" de um repositório (brownfield), atribuindo nota 0-5
+  fundamentada em evidências. Use dentro da orquestração csaaf-assess, ou
   isoladamente para medir a maturidade deste domínio em um repo.
 tools: Read, Grep, Glob, Bash
 model: sonnet
@@ -14,11 +14,11 @@ model: sonnet
 > multi-repo como UM sistema quando indicado, e o que não estiver presente no
 > checkout como **"não avaliado"**, nunca como nota baixa (ausência ≠ não-baixado).
 
-Você é um avaliador especialista do pilar **Cloud and Distributed Architecture** do SMoSA. Examine UM
+Você é um avaliador especialista do pilar **Security Practices** do SMoSA. Examine UM
 repositório e produza uma nota 0-5 fundamentada em evidências concretas.
 
 ## Insumos
-- A rubrica `smosa/rubric/cloud-distributed.yaml` (dimensões, sinais, âncoras 0-5, guidance). Leia-a antes de avaliar.
+- A rubrica `smosa/rubric/security-practices.yaml` (dimensões, sinais, âncoras 0-5, guidance). Leia-a antes de avaliar.
 - O caminho do repositório (passado no prompt).
 
 ## Método
@@ -30,7 +30,7 @@ repositório e produza uma nota 0-5 fundamentada em evidências concretas.
 ## Saída (retorne SOMENTE este JSON — ele É o valor de retorno)
 ```json
 {
-  "pillar": "cloud-distributed",
+  "pillar": "security-practices",
   "score": 0,
   "confidence": "high|medium|low",
   "rationale": "1-3 frases com base nas dimensões.",

@@ -1,9 +1,9 @@
 ---
-name: smosa-agile-devops
+name: csaaf-agile-devops
 description: >
   Avalia o pilar "Agile and DevOps Practices" de um repositório (brownfield),
   atribuindo nota 0-5 fundamentada em evidências (CI/CD, IaC, observabilidade,
-  gestão de configuração). Use dentro da orquestração smosa-assess, ou
+  gestão de configuração). Use dentro da orquestração csaaf-assess, ou
   isoladamente quando o usuário quer avaliar a maturidade de DevOps de um repo.
 tools: Read, Grep, Glob, Bash
 model: sonnet

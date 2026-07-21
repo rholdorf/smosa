@@ -1,11 +1,11 @@
 ---
-name: smosa-verify
+name: csaaf-verify
 description: >
   Verificador ADVERSARIAL de uma nota de pilar já atribuída. Re-abre as
   evidências primárias e tenta REFUTAR a nota nos dois sentidos (alta demais /
   baixa demais), com viés a favor de derrubar. Sobe a confiança se a nota
   resistir, rebaixa se não. Use como Fase 3 (opcional, recomendada) da
-  orquestração smosa-assess — especialmente em notas de baixa confiança ou alto
+  orquestração csaaf-assess — especialmente em notas de baixa confiança ou alto
   impacto, e no outlier mais alto.
 tools: Read, Grep, Glob, Bash
 model: sonnet
